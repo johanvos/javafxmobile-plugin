@@ -428,24 +428,24 @@ class JFXMobilePlugin implements Plugin<Project> {
         retrobufferTask.conventionMapping.map("classpath") { project.files(project.configurations.androidCompile, project.configurations.androidSdk) }
         retrobufferTask.retrobufferOutput = project.file("${project.jfxmobile.android.temporaryDirectory}/retrobuffer/output")
 
-        Retrolambda retrolambdaTask = project.tasks.create("applyRetrolambda", Retrolambda)
-        retrolambdaTask.conventionMapping.map("classpath") { project.files(project.configurations.androidCompileNoRetrolambda, project.configurations.androidSdk) }
-        retrolambdaTask.retrolambdaOutput = project.file("${project.jfxmobile.android.temporaryDirectory}/retrolambda/output")
-        androidTasks.add(retrolambdaTask)
+//        Retrolambda retrolambdaTask = project.tasks.create("applyRetrolambda", Retrolambda)
+//        retrolambdaTask.conventionMapping.map("classpath") { project.files(project.configurations.androidCompileNoRetrolambda, project.configurations.androidSdk) }
+//        retrolambdaTask.retrolambdaOutput = project.file("${project.jfxmobile.android.temporaryDirectory}/retrolambda/output")
+       // androidTasks.add(retrolambdaTask)
 
         if (JavaVersion.current().isJava9Compatible()) {
             retrobufferTask.retrobufferInput = copyClassesForDesugar.destinationDir
             retrobufferTask.dependsOn copyClassesForDesugar
 
-            retrolambdaTask.retrolambdaInput = retrobufferTask.retrobufferOutput
-            retrolambdaTask.dependsOn retrobufferTask
+//            retrolambdaTask.retrolambdaInput = retrobufferTask.retrobufferOutput
+//            retrolambdaTask.dependsOn retrobufferTask
 
             androidTasks.add(retrobufferTask)
         } else {
             retrobufferTask.enabled = false
 
-            retrolambdaTask.retrolambdaInput = copyClassesForDesugar.destinationDir
-            retrolambdaTask.dependsOn copyClassesForDesugar
+//            retrolambdaTask.retrolambdaInput = copyClassesForDesugar.destinationDir
+//            retrolambdaTask.dependsOn copyClassesForDesugar
         }
 
 /*
@@ -462,10 +462,10 @@ class JFXMobilePlugin implements Plugin<Project> {
         Jar mergeClassesIntoJarTask = project.tasks.create("mergeClassesIntoJar", Jar)
         mergeClassesIntoJarTask.destinationDir = project.file("${project.jfxmobile.android.multidexOutputDirectory}")
         mergeClassesIntoJarTask.archiveName = 'allclasses.jar'
-        mergeClassesIntoJarTask.from retrolambdaTask.retrolambdaOutput
+        mergeClassesIntoJarTask.from retrobufferTask.retrobufferOutput
 //        mergeClassesIntoJarTask.from desugarTask.get(project.jfxmobile.android.taskFactory).outputDir
         mergeClassesIntoJarTask.include '**/*.class'
-        mergeClassesIntoJarTask.dependsOn retrolambdaTask
+     //   mergeClassesIntoJarTask.dependsOn retrolambdaTask
 //        mergeClassesIntoJarTask.dependsOn desugarTask.get(project.jfxmobile.android.taskFactory)
         androidTasks.add(mergeClassesIntoJarTask)
 
@@ -729,7 +729,8 @@ class JFXMobilePlugin implements Plugin<Project> {
         if (project.jfxmobile.android.dalvikSdk == null) {
             project.jfxmobile.android.dalvikSdk = resolveSdk(project.configurations.dalvikSdk, "dalvik-sdk")
         }
-        project.jfxmobile.android.dalvikSdkLib = project.file("${project.jfxmobile.android.dalvikSdk}/rt/lib")
+       // project.jfxmobile.android.dalvikSdkLib = project.file("${project.jfxmobile.android.dalvikSdk}/rt/lib")
+        project.jfxmobile.android.dalvikSdkLib = project.file("${project.jfxmobile.android.dalvikSdk}/lib")
         if (!project.jfxmobile.android.dalvikSdkLib.exists()) {
             throw new GradleException("Configured dalvikSdk is invalid: ${project.jfxmobile.android.dalvikSdk}")
         }

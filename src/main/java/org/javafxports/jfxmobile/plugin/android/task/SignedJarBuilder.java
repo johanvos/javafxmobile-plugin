@@ -20,11 +20,11 @@ import com.android.SdkConstants;
 
 import com.android.sdklib.internal.build.SignedJarBuilder.IZipEntryFilter;
 
-import sun.security.pkcs.ContentInfo;
-import sun.security.pkcs.PKCS7;
-import sun.security.pkcs.SignerInfo;
-import sun.security.x509.AlgorithmId;
-import sun.security.x509.X500Name;
+//import sun.security.pkcs.ContentInfo;
+//import sun.security.pkcs.PKCS7;
+//import sun.security.pkcs.SignerInfo;
+//import sun.security.x509.AlgorithmId;
+//import sun.security.x509.X500Name;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -365,19 +365,21 @@ public class SignedJarBuilder {
     private void writeSignatureBlock(Signature signature, X509Certificate publicKey,
             PrivateKey privateKey)
             throws IOException, GeneralSecurityException {
-        SignerInfo signerInfo = new SignerInfo(
-                new X500Name(publicKey.getIssuerX500Principal().getName()),
-                publicKey.getSerialNumber(),
-                AlgorithmId.get(DIGEST_ALGORITHM),
-                AlgorithmId.get(privateKey.getAlgorithm()),
-                signature.sign());
-
-        PKCS7 pkcs7 = new PKCS7(
-                new AlgorithmId[] { AlgorithmId.get(DIGEST_ALGORITHM) },
-                new ContentInfo(ContentInfo.DATA_OID, null),
-                new X509Certificate[] { publicKey },
-                new SignerInfo[] { signerInfo });
-
-        pkcs7.encodeSignedData(mOutputJar);
+        System.err.println("Signature needs to be reimplemented");
+        throw new GeneralSecurityException("Need to implement writeSignatureBlock");
+//        SignerInfo signerInfo = new SignerInfo(
+//                new X500Name(publicKey.getIssuerX500Principal().getName()),
+//                publicKey.getSerialNumber(),
+//                AlgorithmId.get(DIGEST_ALGORITHM),
+//                AlgorithmId.get(privateKey.getAlgorithm()),
+//                signature.sign());
+//
+//        PKCS7 pkcs7 = new PKCS7(
+//                new AlgorithmId[] { AlgorithmId.get(DIGEST_ALGORITHM) },
+//                new ContentInfo(ContentInfo.DATA_OID, null),
+//                new X509Certificate[] { publicKey },
+//                new SignerInfo[] { signerInfo });
+//
+//        pkcs7.encodeSignedData(mOutputJar);
     }
 }
