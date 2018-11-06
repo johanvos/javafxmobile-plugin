@@ -77,6 +77,16 @@ task groovydocJar(type: Jar, dependsOn: groovydoc) {
     classifier = 'javadoc'
 }
 
+compileGroovy {
+    doFirst {
+        options.compilerArgs = [
+                '--add-exports', 'java.base/sun.security.pkcs=ALL-UNNAMED',
+                '--add-exports', 'java.base/sun.security.x509=ALL-UNNAMED'
+        ]
+    }
+}
+
+
 artifacts {
     archives sourceJar, groovydocJar
 }
