@@ -708,6 +708,7 @@ public final class ApkBuilder implements IArchiveBuilder {
      */
     public void addNativeLibraries(File nativeFolder)
             throws ApkCreationException, SealedApkException, DuplicateFileException {
+        System.out.println("\n\n\n\nADDNATIVELIBRARIES FROM FOLDER "+nativeFolder);
         if (mIsSealed) {
             throw new SealedApkException("APK is already sealed");
         }

@@ -333,11 +333,12 @@ class JFXMobilePlugin implements Plugin<Project> {
                     androidRuntime project.fileTree("${project.jfxmobile.android.dalvikSdkLib}/ext") {
                         include 'compat-1.0.0.jar'
                     }
-                    androidRuntimeNoRetrolambda project.fileTree("${project.jfxmobile.android.dalvikSdkLib}/ext") {
+                    androidRuntimeNoRetrolambda project.fileTree("${project.jfxmobile.android.dalvikSdkLib}") {
                         include 'jfxrt.jar'
+                        include 'jfxdvk.jar'
                     }
                 }
-
+project.logger.info("\n\n\n\nADDED some jars");
                 // configure android boot classpath
                 def androidBootclasspath = project.configurations.androidBootclasspath
                 if (!androidBootclasspath.empty) {

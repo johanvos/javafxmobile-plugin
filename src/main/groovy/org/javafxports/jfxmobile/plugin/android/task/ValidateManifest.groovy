@@ -74,7 +74,7 @@ class ValidateManifest extends DefaultTask {
                     out.writeLine("\t<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>")
                     out.writeLine("\t<uses-sdk android:minSdkVersion=\"${project.jfxmobile.android.minSdkVersion}\" android:targetSdkVersion=\"${project.jfxmobile.android.targetSdkVersion}\"/>")
                     out.writeLine("\t<application android:label=\"${project.name}\" android:name=\"android.support.multidex.MultiDexApplication\">")
-                    out.writeLine("\t\t<activity android:name=\"javafxports.android.FXActivity\" android:label=\"${project.name}\" android:configChanges=\"orientation|screenSize\">")
+                    out.writeLine("\t\t<activity android:name=\"com.oracle.dalvik.FXActivity\" android:label=\"${project.name}\" android:configChanges=\"orientation|screenSize\">")
                     out.writeLine("\t\t\t<meta-data android:name=\"main.class\" android:value=\"${project.mainClassName}\"/>")
                     if (project.preloaderClassName != null && !project.preloaderClassName.empty) {
                         out.writeLine("\t\t\t<meta-data android:name=\"preloader.class\" android:value=\"${project.preloaderClassName}\"/>")
